@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shapefile to Emf</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/FileSaver.js"></script>
+	<link rel="stylesheet" href="css/css.css"/>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row" style='padding-top:10px;padding-bottom:10px;'>
+			<div class="col-lg-12 text-center">
+				<h3>Shapefile to EMF</h3>
+				<p>Convert a zipped shapefile to and EMF file in powerpoint</p>
+			</div>
+			<div class="col-lg-12" id='loadBloc'>
+			</div>
+			<div class="col-lg-12 text-center" hidden id='uploadBloc'>
+				<select class="form-control" id='fileFields' style='width:300px;color:#ff005c;margin-left: auto; margin-right: auto;margin-bottom:10px;'></select>
+				<input class="btn btn-default" type="button" value="Convert" onclick="ConvertForEmf()" id="convert" hidden style='width:300px;background-color:#ff005c;color:#ffffff;'/>
+			</div> 
+			<div class="col-lg-12 text-center" id='dropHere'>
+				<span class='TextDrop'>Drop your Zipped Shapefile here</span><br/>
+				<span class='glyphicon glyphicon-inbox TextDrop'></span>
+			</div>
+		</div>
+		<div class="row" style='background-color:#ff005c;color:#ffffff;padding-top:10px;padding-bottom:10px;'>
+			
+			<div class="col-lg-5 text-center" >
+				<span class=''>How it works?</span>
+				<div class="embed-responsive embed-responsive-16by9">
+				  <video autoplay controls>
+				  <source src="video/shapefileToemf.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+				</video>
+				</div>
+			</div>
+			<div class="col-lg-7 text-center" >
+				<span class=''>What you need to install?</span>
+				<div class="col-lg-12 text-center" >
+					<div class="col-lg-12 text-center" >
+						<a href='setup/ShapefileToEmf_PowerPointA_Addin.zip' class='link'>Download and install Powerpoint (2013,2016) Addin</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<script type="application/javascript">
+		var data;
+		window.ondragover = function(e) {e.preventDefault()}
+		window.ondrop = function(e) {
+			
+			e.preventDefault();
+			//console.log("Reading...");
+
+			var length = e.dataTransfer.items.length;
+			if(length > 1){
+				alert("Please only drop 1 file.");
+			} else {
+				upload(e.dataTransfer.files[0]);
+			}
+		}
+    </script>
+</body>
+</html>

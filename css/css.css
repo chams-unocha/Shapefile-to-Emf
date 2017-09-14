@@ -1,0 +1,44 @@
+.loaderX{
+  border: 16px solid #e2e2e2;
+  border-radius: 50%;
+  border-top: 16px solid #ff005c;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin-left:auto;
+  margin-right:auto;
+  z-index:11;
+  position:relative;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.TextDrop{
+	color:#ff005c;
+	font-size:40px;
+	text-align:center;
+}
+
+.link{
+	font-size:20px;
+	font-weight:normal;
+	color:#ffffff;
+	margin:5px;
+	font-family: 'AvenirNext','arial';
+	text-decoration:none;
+	border-radius:5px;
+	display:inline-block;
+	padding:3px;
+}.link:hover{
+	color:#e2e2e2;
+	text-decoration:none;
+}
