@@ -133,7 +133,19 @@ function upload(file){
 				$('#uploadBloc').show();
             },
             error: function(msg) {
-              //console.log("Error: "+msg);
+              console.log(msg.responseText);
+			  var error = undefined;
+			  try{
+				  error = JSON.parse(msg.responseText);
+			  }catch(e){
+				  alert('An error occured contact the support');
+			  }
+			  
+			  if(error!=undefined){
+				$('#loadBloc').html("");
+				$('#loadBloc').html("<div class='alert alert-danger' role='alert'>"+error.errors[1]+" - "+error.errors[2]+"<br/><strong>Try again or contact the support</strong></div>");
+			  }
+			  
 			  $('#convert').attr('disabled', 'disabled');
             }
       });
