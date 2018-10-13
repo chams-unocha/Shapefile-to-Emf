@@ -132,8 +132,8 @@ function upload(file){
 				$('#loadBloc').html("");
 				$('#uploadBloc').show();
             },
-            error: function(msg) {
-              console.log(msg.responseText);
+            error: function(jqXHR,msg,errorThrown) {
+              console.log(jqXHR.status);
 			  var error = undefined;
 			  try{
 				  error = JSON.parse(msg.responseText);
@@ -141,12 +141,19 @@ function upload(file){
 				  alert('An error occured contact the support');
 			  }
 			  
-			  if(error!=undefined){
 				$('#loadBloc').html("");
-				$('#loadBloc').html("<div class='alert alert-danger' role='alert'>"+error.errors[1]+" - "+error.errors[2]+"<br/><strong>Try again or contact the support</strong></div>");
-			  }
-			  
-			  $('#convert').attr('disabled', 'disabled');
+				switch (jqXHR.status) {
+					case 0:
+						$('#loadBloc').append("<div class='alert alert-danger' role='alert'>Try to<br/>* Check your internet connection<br/>* Check the integrety of your file <br/>* Convert it at <a href='https://mapshaper.org/' target='_blank'> https://mapshaper.org/</a></div>");
+						break;
+					default:
+						$('#loadBloc').append("<div class='alert alert-danger' role='alert'>"+jqXHR.status+" : "+errorThrown+"<br/><strong>Try again or contact the support</strong></div>");
+						break;
+				}
+
+				
+				
+				$('#convert').attr('disabled', 'disabled');
             }
       });
     }
