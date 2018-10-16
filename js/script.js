@@ -102,6 +102,7 @@ function upload(file){
 		
 		var formdata = new FormData();
 		formdata.append("upload", file);
+		formdata.append('targetSrs', 'EPSG:4326');
 		 $.ajax({
             url: 'https://ogre.adc4gis.com/convert',
             data: formdata,
