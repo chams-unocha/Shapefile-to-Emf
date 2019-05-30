@@ -3,6 +3,74 @@ $(document).ready(function()
 
 });
 
+function showbutton(select){
+	if(select.value==""){
+		$("#convert").hide();
+	}else{
+		$("#convert").show();
+	}
+}
+function readerLoad() {
+	if (this.readyState !== 2 || this.error) {
+			return;
+	}
+	else {
+
+		shp(this.result).then(function(geoJson){
+
+
+			//start
+			data = geoJson;
+			var header = GetShapeFileHeader(data);
+			var selectMapLabel = document.getElementById('fileFields');
+			for(var i = 0; i < header.length; i++) {
+				var opt = header[i];
+				var el = document.createElement("option");
+				el.textContent = opt;
+				el.value = opt;
+				selectMapLabel.appendChild(el);
+			}
+
+			$('#loadBloc').html("");
+			$('#uploadBloc').show();
+
+
+		}, function(e) {
+				console.log('shit', e);
+		});
+	}
+}
+
+function handleZipFile(file) {
+        
+	var reader = new FileReader();
+	reader.onload = readerLoad;
+	reader.readAsArrayBuffer(file);
+}
+
+function handleFile(file) {
+
+
+	if (file.name.slice(-3) === 'zip') {
+			return handleZipFile(file);
+	}
+	var reader = new FileReader();
+	reader.onload = function() {
+			var ext;
+			if (reader.readyState !== 2 || reader.error) {
+					return;
+			}
+			else {
+					ext = file.name.split('.');
+					ext = ext[ext.length - 1];
+
+
+					
+			}
+	};
+	reader.readAsArrayBuffer(file);
+}
+
 function ConvertForEmf(){
 	var rsl = data;
 	var fileContent = "";
@@ -14,12 +82,6 @@ function ConvertForEmf(){
 		for(i=0; i < rsl.features.length; i++) {
 			name = rsl.features[i].properties.admin2Pcod;
 			type = rsl.features[i].geometry.type;
-			
-			if(name=="NG024006"){
-				console.log(rsl.features[i]);
-				
-			}
-			
 			
 			if(type == 'Polygon' || type == "MultiPolygon"){
 				var coordinates = rsl.features[i].geometry.coordinates;

@@ -4,10 +4,12 @@
 <title>Shapefile to Emf</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
+	
 	<script type="text/javascript" src="js/FileSaver.js"></script>
+	<script type="text/javascript" src="js/shp.js"></script>
 	<link rel="stylesheet" href="ionIcons/css/ionicons.css"/>
 	<link rel="stylesheet" href="css/css.css"/>
+	<script type="text/javascript" src="js/script.js"></script>
 </head>
 
 <body>
@@ -15,27 +17,31 @@
 		<div class="row" style='padding-top:10px;padding-bottom:10px;'>
 			<div class="col-lg-12 text-center">
 				<img src='images/ochalogoHorizontalx500.png' style='width:200px;'/>
-				<h3>Shapefile to EMF</h3>
+				<h3>Shapefile to EMF <small>2.0</small></h3>
 				<p>Draw a map in Powerpoint from a zipped shapefile</p>
 			</div>
 			<div class="col-lg-12" id='loadBloc'>
 			</div>
 			<div class="col-lg-12 text-center" hidden id='uploadBloc'>
-				<select class="form-control" id='fileFields' style='width:300px;color:#ff005c;margin-left: auto; margin-right: auto;margin-bottom:10px;'></select>
-				<input class="btn btn-default" type="button" value="Convert" onclick="ConvertForEmf()" id="convert" hidden style='width:300px;background-color:#ff005c;color:#ffffff;'/>
+				<div class="form-group has-success">
+						<select class="form-control" id='fileFields' onchange="showbutton(this)" style='width:300px;color:#cc3399;margin-left: auto; margin-right: auto;margin-bottom:10px;'>
+								<option value=''>Select a colunm to name the polygons</option>
+						</select>
+				</div>
+				<input class="btn btn-default " type="button" value="Convert" onclick="ConvertForEmf()" id="convert" hidden style='display:none;width:300px;background-color:#cc3399;color:#ffffff;'/>
 			</div> 
 			<div class="col-lg-12 text-center" id='dropHere'>
 				<span class='TextDrop'>Drop your Zipped Shapefile and convert the result in powerpoint</span><br/>
 				<span class='glyphicon glyphicon-inbox TextDrop'></span>
 			</div>
 		</div>
-		<div class="row" style='background-color:#ff005c;color:#ffffff;padding-top:10px;padding-bottom:10px;'>
+		<div class="row" style='background-color:#cc3399;color:#ffffff;padding-top:10px;padding-bottom:10px;'>
 			
 			<div class="col-lg-5 text-center" >
-				<span class=''  style='font-size:30px;'>3 Steps</span><br/><span class=''  style='font-size:15px;'>to draw a map</span>
-				<div class="embed-responsive embed-responsive-16by9">
-				  <video autoplay controls>
-				  <source src="video/shapefileToemf.mp4" type="video/mp4">
+				<span class=''  style='font-size:30px;'>3 Steps</span><br/><span class=''  style='font-size:15px;;'>to draw a map<br/></span>
+				<div class="embed-responsive embed-responsive-16by9" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color: black;">
+				  <video autoplay controls poster="video/image.jpg">
+				  <source src="video/shapefiletoemfv2.mp4" type="video/mp4">
 				Your browser does not support the video tag.
 				</video>
 				</div>
@@ -59,14 +65,20 @@
 		window.ondragover = function(e) {e.preventDefault()}
 		window.ondrop = function(e) {
 			
+			e.stopPropagation();
 			e.preventDefault();
-			//console.log("Reading...");
 
-			var length = e.dataTransfer.items.length;
-			if(length > 1){
-				alert("Please only drop 1 file.");
-			} else {
-				upload(e.dataTransfer.files[0]);
+			var dt = e.dataTransfer;
+			var files = dt.files;
+
+			var i = 0;
+			var len = files.length;
+			if (!len) {
+					return
+			}
+			while (i < len) {
+					handleFile(files[i]);
+					i++;
 			}
 		}
     </script>

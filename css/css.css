@@ -1,7 +1,7 @@
 .loaderX{
   border: 16px solid #e2e2e2;
   border-radius: 50%;
-  border-top: 16px solid #ff005c;
+  border-top: 16px solid #cc3399;
   width: 60px;
   height: 60px;
   -webkit-animation: spin 2s linear infinite;
@@ -23,7 +23,7 @@
 }
 
 .TextDrop{
-	color:#ff005c;
+	color:#cc3399;
 	font-size:40px;
 	text-align:center;
 }
